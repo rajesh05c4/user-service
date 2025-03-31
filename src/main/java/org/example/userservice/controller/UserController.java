@@ -1,5 +1,6 @@
 package org.example.userservice.controller;
 
+import jakarta.validation.Valid;
 import org.example.userservice.model.User;
 import org.example.userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public User saveUser(@RequestBody User user) {
+    public User saveUser(@Valid @RequestBody User user) {
         return userService.saveUser(user);
     }
 
