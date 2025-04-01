@@ -1,0 +1,20 @@
+# Ignore everything except the target/JAR and Dockerfile
+*
+!target/*.jar
+!Dockerfile
+
+# Common exclusions
+.git
+.gitignore
+.idea/
+*.md
+*.log
+*.iml
+/src/test/
+/build/
+/target/test-classes/
+
+# Maven/Gradle specific
+.mvn/
+.gradle/
+.gradle/
