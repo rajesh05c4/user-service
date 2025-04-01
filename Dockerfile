@@ -1,14 +1,13 @@
-# Use a lightweight base image with Java 17
-FROM openjdk:17-jdk-slim
-
-# Set the working directory in the container
+# Stage 1: Build the Spring Boot application
+FROM maven:3.8.5-openjdk-17 AS builder # Or gradle:7-jdk17
 WORKDIR /app
+COPY pom.xml . # Or build.gradle and settings.gradle
+COPY src ./src
+RUN mvn clean package -DskipTests # Or gradle build -x test
 
-# Copy the JAR file into the container
-COPY target/*.jar app.jar
-
-# Expose the port your Spring Boot app runs on (typically 8080)
+# Stage 2: Create the final image
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Command to run the Spring Boot application
 CMD ["java", "-jar", "app.jar"]
