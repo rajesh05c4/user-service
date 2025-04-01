@@ -1,3 +1,9 @@
+# First stage - Build JAR inside Docker
+FROM maven:3.8.6-openjdk-17 AS build
+WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
+
 # Use OpenJDK 17 as the base image
 FROM openjdk:17-jdk-slim
 
