@@ -1,13 +1,26 @@
-# Stage 1: Build the Spring Boot application
-FROM maven:3.8.5-openjdk-17 AS builder # Or gradle:7-jdk17
-WORKDIR /app
-COPY pom.xml . # Or build.gradle and settings.gradle
-COPY src ./src
-RUN mvn clean package -DskipTests # Or gradle build -x test
+FROM maven:3.8.5-openjdk-17 AS build
 
-# Stage 2: Create the final image
+# Set the working directory
+WORKDIR /app
+
+# Copy the project files
+RUN ls -la /app
+
+COPY pom.xml .
+COPY src/ src/
+
+# Build the application
+RUN mvn clean package -DskipTests
+
+# Use a minimal JDK runtime for the final image
 FROM openjdk:17-jdk-slim
 WORKDIR /app
-COPY --from=builder /app/target/*.jar app.jar
+
+# Copy the built JAR file
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose the port Render will use
 EXPOSE 8080
+
+# Run the application
 CMD ["java", "-jar", "app.jar"]
