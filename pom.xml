@@ -12,7 +12,7 @@
 
     <properties>
         <java.version>23</java.version>
-        <spring-boot.version>3.2.2</spring-boot.version>
+        <spring-boot.version>3.3.0</spring-boot.version>
     </properties>
 
     <dependencyManagement>
@@ -83,7 +83,7 @@
                 </executions>
             </plugin>
 
-            <!-- Maven Compiler Plugin (for Java 23 support) -->
+            <!-- Maven Compiler Plugin (for Java 17 support) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
