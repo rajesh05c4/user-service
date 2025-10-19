@@ -1,7 +1,7 @@
 # Ignore everything except the target/JAR and Dockerfile
-*
-!target/*.jar
-!Dockerfile
+#*
+#!target/*.jar
+#!Dockerfile
 
 # Common exclusions
 .git
