@@ -83,7 +83,7 @@
                 </executions>
             </plugin>
 
-            <!-- Maven Compiler Plugin (for Java 17 support) -->
+            <!-- Maven Compiler Plugin (for Java 23 support) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

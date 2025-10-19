@@ -1,26 +1,30 @@
-FROM maven:3.8.5-openjdk-17 AS build
+# Use Maven with JDK 23 for the build
+FROM maven:3.9.9-eclipse-temurin-23 AS build
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy the project files
-RUN ls -la /app
-
+# Copy Maven files first (for dependency caching)
 COPY pom.xml .
-COPY src/ src/
+RUN mvn dependency:go-offline -B
 
-# Build the application
+# Copy the rest of the source code
+COPY src ./src
+
+# Build the application (skip tests for speed)
 RUN mvn clean package -DskipTests
 
-# Use a minimal JDK runtime for the final image
-FROM openjdk:17-jdk-slim
+# Runtime image with OpenJDK 23
+FROM eclipse-temurin:23-jdk
+
+# Set working directory
 WORKDIR /app
 
-# Copy the built JAR file
+# Copy built jar from the previous stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose the port Render will use
+# Expose port (change if needed)
 EXPOSE 8080
 
-# Run the application
-CMD ["java", "-jar", "app.jar"]
+# Run the Spring Boot app
+ENTRYPOINT ["java", "-jar", "app.jar"]
