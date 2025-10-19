@@ -33,8 +33,4 @@ public class User {
     @JsonFormat(pattern = "MM/dd/yyyy")
     private LocalDate dob;
 
-    public String getEmail() {
-        return  email;
-    }
-
 }

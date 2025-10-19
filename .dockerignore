@@ -17,4 +17,3 @@
 # Maven/Gradle specific
 .mvn/
 .gradle/
-.gradle/
