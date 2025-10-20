@@ -16,18 +16,18 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @SequenceGenerator(name = "user_seq", sequenceName = "user_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "user_seq", sequenceName = "user_sequence", initialValue = 1111, allocationSize = 1)
     private Long id;
 
-    @NotNull(message = "Name is required")
-    private String name;
+    @NotNull(message = "FirstName is required")
+    private String firstName;
+
+    @NotNull(message = "LastName is required")
+    private String lastName;
 
     @NotNull(message = "Email is required")
     @Column(unique = true)
     private String email;
-
-    @NotNull(message = "Age is required")
-    private Integer age;
 
     @NotNull(message = "Date of birth is required")
     @JsonFormat(pattern = "MM/dd/yyyy")

@@ -24,4 +24,11 @@ public class GlobalExceptionHandler {
         errorResponse.put("error", "Something went wrong: " + ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
+
+    @ExceptionHandler(DuplicateAccountTypeException.class)
+    public ResponseEntity<Map<String, String>> handleDuplicateAccountType(DuplicateAccountTypeException ex) {
+        Map<String, String> response = new HashMap<>();
+        response.put("error", ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }
