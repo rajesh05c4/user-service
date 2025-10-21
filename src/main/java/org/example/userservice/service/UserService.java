@@ -23,6 +23,23 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @Transactional
+    public User updateUser(Long id, User updatedUser) {
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User with ID " + id + " does not exist."));
+
+        if (userRepository.existsByEmail(updatedUser.getEmail())) {
+            throw new EmailAlreadyExistsException("Email already exists: " + updatedUser.getEmail());
+        }
+
+        existingUser.setFirstName(updatedUser.getFirstName());
+        existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setLastName(updatedUser.getLastName());
+        existingUser.setDob(updatedUser.getDob());
+
+        return userRepository.save(existingUser);
+    }
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }

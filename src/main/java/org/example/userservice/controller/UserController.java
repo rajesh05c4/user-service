@@ -20,6 +20,11 @@ public class UserController {
         return userService.saveUser(user);
     }
 
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable("id") Long id, @Valid @RequestBody User user) {
+        return userService.updateUser(id, user);
+    }
+
     @GetMapping
     public List<User> getAllUsers() {
         return userService.getAllUsers();
